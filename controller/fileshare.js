@@ -28,14 +28,15 @@ const uploadOneFile = async (req, res) => {
       });
     } else {
       console.log("File Uploaded Sucesfullly !");
+      //------------------- below this ;ine or save modela as to save data in DB -------------------
       const newFile =  new fileModal({
         filename: req.file.filename,
         path: req.file.path,
         size: req.file.size,
-        
-
+      
       });
-    const newFileInsrted= await newFile.save();
+      const newFileInsrted = await newFile.save();
+      
 
        res.json({
          sucess: true,
