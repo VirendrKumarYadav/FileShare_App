@@ -2,7 +2,9 @@ const fileModal = require("../modal/fileshere");
 const multer = require("multer")
 const path = require("path");
 const uploadFilePath = path.join(__dirname, "..", "uploadedFiles");
-const { v4:uuidv4 } =require("uuid");
+// const { v4: uuidv4 } = require("uuid");
+const shortid = require("shortid");
+  const short_id = shortid.generate();
 // ----------To upload the files 3rd party middleware -----------
 
 
@@ -10,7 +12,7 @@ let storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadFilePath),
   filename: (req, file, cb) => {
    
-    cb(null, uuidv4()+path.extname(file.originalname));
+    cb(null, short_id + path.extname(file.originalname));
   },
 });
 const uploadFile = multer({ storage:storage }).single("attachment");
