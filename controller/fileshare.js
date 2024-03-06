@@ -16,29 +16,34 @@ let storage = multer.diskStorage({
 const uploadFile = multer({ storage: storage }).single("attachment");
 //---------------------POST -----------------------------
 const uploadOneFile = async (req, res) => {
-  await uploadFile(req, res, async (err) => {
-    if (err) {
-      res.json({
-        sucess: false,
-        massage: "error to upload the File",
-        err,
-      });
-    } else {
-      console.log("File Uploaded Sucesfullly !");
-      //------------------- below this ;ine or save modela as to save data in DB -------------------
-      const newFile = new fileModal({
-        filename: req.file.filename,
-        path: req.file.path,
-        size: req.file.size,
-      });
-      const newFileInsrted = await newFile.save();
 
-      res.json({
-        sucess: true,
-        massage: "File Uploaded Sucesfullly !",
-        file_id: newFileInsrted._id, // uuid for save file data
-      });
-    }
+  await uploadFile(req, res, async (err) => {
+        try {
+          if (err) {
+            res.json({
+              sucess: false,
+              massage: "error to upload the File",
+              err,
+            });
+          } else {
+            console.log("File Uploaded Sucesfullly !");
+            //------------------- below this ;ine or save modela as to save data in DB -------------------
+            const newFile = new fileModal({
+              filename: req.file.filename,
+              path: req.file.path,
+              size: req.file.size,
+            });
+            const newFileInsrted = await newFile.save();
+
+            res.json({
+              sucess: true,
+              massage: "File Uploaded Sucesfullly !",
+              file_id: newFileInsrted._id, // uuid for save file data
+            });
+          }
+        } catch (e) {
+          res.json({ err: e.message });
+        }
   });
 
   // const insertData = new JobModal(req.body);
