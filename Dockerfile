@@ -1,6 +1,7 @@
 # node version 20
 
 FROM  node:hydrogen-slim
+FROM  mongo-express:latest
 
 # create new folder 
 WORKDIR /fileshare_App
@@ -19,4 +20,4 @@ CMD [ "node","index.js" ]
 
 
 # docker build cmd
-# docker build -t FileSheringApp:1.0.0 .
+# docker build -t fileshareapp:1.0.0 .

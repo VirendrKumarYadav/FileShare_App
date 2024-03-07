@@ -69,7 +69,7 @@ const generateLink = async (req, res) => {
       sucess: true,
       massage: "Generated Link for File",
       size: dbData.size / 1000 + " kb",
-      downloadLink: `${process.env.API_BASE_URL_LOCAL}/files/download/${req.params.udid}`,
+      downloadLink: `${process.env.API_BASE_URL}/files/download/${req.params.udid}`,
     });
   } catch (err) {
     res.json({ error: err.message });
